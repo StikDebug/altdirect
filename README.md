@@ -137,4 +137,6 @@ Using the hosted page at https://stikstore.app/altdirect:
 
 ## License
 
-Licensed under the GNU Affero General Public License v3.0 (AGPL‑3.0).
+AGPLv3 (software source code)
+
+**Branding and assets:** Restrictions apply — see `LICENSE` footer
