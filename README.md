@@ -16,10 +16,10 @@ Mirror: https://stikstore.github.io/altdirect
 ## What it does
 
 - Generates “Open in …” buttons for:
+  - StikStore
   - SideStore
   - AltStore Classic
-  - StikStore
-  - LiveContainer (currently, only nightly)
+  - LiveContainer
   - Feather
   - TrollApps
 
@@ -60,15 +60,15 @@ Create your link using the query parameters below. These parameters are stable a
     - `apps.altstore.io` (becomes `https://apps.altstore.io`)
 - `&exclude` (string, optional)
   - Comma‑separated list of buttons to hide. Valid keys:
-    - `sidestore`, `altstore`, `stikstore`, `livecontainer`, `feather`, `trollapps`
+    - `stikstore`, `sidestore`, `altstore`, `livecontainer`, `feather`, `trollapps`
   - Example: `&exclude=altstore,feather`
 - `&r` (string, optional)
   - Valid keys matches `exclude`. Only one entry.
   - Example: `r=sidestore`
   - Must be used with `url` present. When present, the page immediately redirects using these mappings:
+    - `stikstore` → `stikstore://add-source?url=<url>`
     - `sidestore` → `sidestore://source?url=<url>`
     - `altstore` → `altstore-classic://source?url=<url>`
-    - `stikstore` → `stikstore://add-source?url=<url>`
     - `livecontainer` → `livecontainer://source?url=<url>`
     - `feather` → `feather://source/<url>`
     - `trollapps` → `trollapps://add?url=<url>`
@@ -122,7 +122,7 @@ Using the hosted page at https://stikstore.app/altdirect:
 ## Security and privacy
 
 - This page intentionally implements an “open redirect”-style flow via `r` + `url` so you can deep‑link into custom app schemes. Only open links from sources you trust. I am not liable for any misuse or adverse effects resulting from following links provided by others.
-- There is no tracking, analytics, or external requests in this repo (besides the url redirect to your sideloader). Clipboard access is user‑initiated (Paste/Copy buttons) and subject to browser permissions.
+- There is no tracking or analytics.
 
 ---
 
