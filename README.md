@@ -3,7 +3,7 @@
 
 [![pages-build-deployment](https://github.com/StikStore/altdirect/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/StikStore/altdirect/actions/workflows/pages/pages-build-deployment)
 
-A tiny, dependency‑free static helper page for launching AltStore Sources (AltSources) in your preferred sideloading app. Paste or pass an AltSource feed URL and quickly open it in StikStore, SideStore, AltStore Classic, Feather, or LiveContainer.
+A tiny, dependency‑free static helper page for launching AltStore Sources (AltSources) in your preferred sideloading app. Paste or pass an AltSource feed URL and quickly open it in SideStore, AltStore Classic, StikStore, LiveContainer, Feather or TrollApps.
 
 Live page: https://stikstore.app/altdirect
 
@@ -16,9 +16,9 @@ Mirror: https://stikstore.github.io/altdirect
 ## What it does
 
 - Generates “Open in …” buttons for:
-  - StikStore
   - SideStore
   - AltStore Classic
+  - StikStore
   - LiveContainer (currently, only nightly)
   - Feather
   - TrollApps
