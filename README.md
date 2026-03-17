@@ -21,6 +21,7 @@ Mirror: https://stikstore.github.io/altdirect
   - AltStore Classic
   - LiveContainer (currently, only nightly)
   - Feather
+  - TrollApps
 
 - Supports one‑tap deep linking via the `r` (redirect target) parameter together with the `url` parameter.
 - Provides convenient actions:
