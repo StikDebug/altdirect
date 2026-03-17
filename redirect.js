@@ -7,7 +7,8 @@ const schemes = {
   altstore: s => "altstore-classic://source?url=" + s,
   stikstore: s => "stikstore://add-source?url=" + s,
   livecontainer: s => "livecontainer://source?url=" + s,
-  feather: s => "feather://source/" + s
+  feather: s => "feather://source/" + s,
+  trollapps: s => "trollapps://add?url=" + s
 }
 
 function resolveTarget(kind, s) {

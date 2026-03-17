@@ -292,6 +292,9 @@ p.description {
 .custom-button.feather { background-color: rgba(132, 142, 249, 0.6); border-color: rgba(132, 142, 249, 0.8); }
 .custom-button.feather:hover { background-color: rgba(132, 142, 249, 0.8); }
 
+.custom-button.trollapps { background-color: rgba(117, 86, 208, 0.6); border-color: rgba(117, 86, 208, 0.8); }
+.custom-button.trollapps:hover { background-color: rgba(170, 128, 228, 0.8); border-color: rgba(170, 128, 228, 0.8); }
+
 .custom-button.neutral { background-color: var(--neutral-btn-bg); color: var(--text-color); }
 .custom-button.neutral:hover { background-color: var(--neutral-btn-hover); }
 
