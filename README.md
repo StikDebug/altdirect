@@ -99,12 +99,15 @@ Together, they appear as:
 
 Pretty nice, huh?
 
->[!NOTE]
->The URL format and asset links should never be modified in a way that breaks site functionality or requires action on your end. In addition, I don't see github.io being deprecated anytime soon, so the hosted page is expected to remain available.
+>[!WARNING]
+>Some of you more familiar with html may ask: this seems like it adds some extra bloat. Why? Essentially, if you remove the h1 tag the images render with an uncomfortable small blue hyperlink underline between them in GitHub markdown/readme's, this fixes that.
+
 
 ---
 
 ## Examples
+>[!NOTE]
+>The URL format and asset links should never be modified in a way that breaks site functionality or requires action on your end. In addition, we don't intend to stop paying for stikstore.app soon, but if so, I don't see github.io being deprecated, so the mirror is expected to remain available regardless.
 
 Using the hosted page at https://stikstore.app/altdirect:
 
