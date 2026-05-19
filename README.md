@@ -60,17 +60,18 @@ Create your link using the query parameters below. These parameters are stable a
     - `apps.altstore.io` (becomes `https://apps.altstore.io`)
 - `&exclude` (string, optional)
   - Comma‑separated list of buttons to hide. Valid keys:
-    - `stikstore`, `sidestore`, `altstore`, `livecontainer`, `feather`, `trollapps`
+    - `altstore`, `feather`, `livecontainer`, `sidestore`, `stikstore`, `trollapps`
   - Example: `&exclude=altstore,feather`
 - `&r` (string, optional)
   - Valid keys matches `exclude`. Only one entry.
   - Example: `r=sidestore`
   - Must be used with `url` present. When present, the page immediately redirects using these mappings:
-    - `stikstore` → `stikstore://add-source?url=<url>`
-    - `sidestore` → `sidestore://source?url=<url>`
     - `altstore` → `altstore-classic://source?url=<url>`
-    - `livecontainer` → `livecontainer://source?url=<url>`
     - `feather` → `feather://source/<url>`
+    - `livecontainer` → `livecontainer://source?url=<url>`
+    - `sidestore` → `sidestore://source?url=<url>`
+    - `stikstore` → `stikstore://add-source?url=<percent-encoded http/https source URL>`
+      - StikStore also accepts `source`, `sourceURL`, `sourceUrl`, or `source_url` instead of `url`.
     - `trollapps` → `trollapps://add?url=<url>`
     
 

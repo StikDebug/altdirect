@@ -5,7 +5,7 @@ const sourceUrl = sp.get("url")
 const schemes = {
   sidestore: s => "sidestore://source?url=" + s,
   altstore: s => "altstore-classic://source?url=" + s,
-  stikstore: s => "stikstore://add-source?url=" + s,
+  stikstore: s => "stikstore://add-source?url=" + encodeURIComponent(s),
   livecontainer: s => "livecontainer://source?url=" + s,
   feather: s => "feather://source/" + s,
   trollapps: s => "trollapps://add?url=" + s
