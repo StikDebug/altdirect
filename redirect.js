@@ -8,7 +8,9 @@ const schemes = {
   stikstore: s => "stikstore://add-source?url=" + encodeURIComponent(s),
   livecontainer: s => "livecontainer://source?url=" + s,
   feather: s => "feather://source/" + s,
-  trollapps: s => "trollapps://add?url=" + s
+  trollapps: s => "trollapps://add?url=" + s,
+  sourcedata: s => s,
+  copyurl: s => s
 }
 
 function resolveTarget(kind, s) {

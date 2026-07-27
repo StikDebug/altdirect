@@ -217,34 +217,34 @@
                 { key: 'livecontainer', label: 'Open in LiveContainer', href: hrefWithR('livecontainer'), cls: 'livecontainer' },
                 { key: 'sidestore', label: 'Open in SideStore', href: hrefWithR('sidestore'), cls: 'sidestore' },
                 { key: 'stikstore', label: 'Open in StikStore', href: hrefWithR('stikstore'), cls: 'stikstore' },
-                { key: 'trollapps', label: 'Open in TrollApps', href: hrefWithR('trollapps'), cls: 'trollapps' }
+                { key: 'trollapps', label: 'Open in TrollApps', href: hrefWithR('trollapps'), cls: 'trollapps' },
+                { key: 'copyurl', label: 'Copy Source URL', href: "", cls: 'neutral' },
+                { key: 'sourcedata', label: 'View Source Data', href: hrefWithR('sourcedata'), cls: 'neutral' }
             ];
 
+            let copyBtn = null;
             for (let i = 0; i < linkMap.length; i++) {
                 const item = linkMap[i];
                 if (excludeList.includes(item.key)) continue;
                 const a = createEl('a', { class: 'custom-button ' + item.cls, href: item.href, target: '_self', rel: 'noopener' }, item.label);
                 frag.appendChild(a);
+                if (item.key === 'copyurl') copyBtn = a;
             }
 
-            const copyBtn = createEl('button', { class: 'custom-button neutral', id: 'copy-link-btn', type: 'button' }, 'Copy Source URL');
-            copyBtn.addEventListener('click', function () {
-                const self = this;
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(s).then(() => {
-                        const prev = self.textContent;
-                        self.textContent = 'Copied!';
-                        setTimeout(() => { self.textContent = prev; }, 1500);
-                    });
-                }
-            });
+            if (copyBtn) {
+                copyBtn.addEventListener('click', function (ev) {
+                    ev.preventDefault();
+                    const self = this;
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(s).then(() => {
+                            const prev = self.textContent;
+                            self.textContent = 'Copied!';
+                            setTimeout(() => { self.textContent = prev; }, 1500);
+                        });
+                    }
+                });
+            }
 
-            const viewBtn = createEl('button', { class: 'custom-button neutral', id: 'view-source-btn', type: 'button' }, 'View Source Data');
-            viewBtn.addEventListener('click', () => {
-                window.open(s, '_blank', 'noopener,noreferrer');
-            });
-
-            frag.append(copyBtn, viewBtn);
             return frag;
         }
 
