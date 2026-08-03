@@ -95,6 +95,43 @@ body {
     transition: background-color 0.4s ease, color 0.4s ease;
 }
 
+.old-address-banner {
+    width: 100%;
+    max-width: 900px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    padding: 14px 72px 14px 18px;
+    color: #ffd60a;
+    background: rgba(255, 214, 10, 0.12);
+    border: 1px solid rgba(255, 214, 10, 0.35);
+    border-radius: 14px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.old-address-banner[hidden] {
+    display: none;
+}
+
+.old-address-banner a {
+    color: inherit;
+    font-weight: 600;
+}
+
+:root[data-theme="light"] .old-address-banner {
+    color: #6e5600;
+    background: rgba(255, 204, 0, 0.18);
+    border-color: rgba(110, 86, 0, 0.25);
+}
+
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) .old-address-banner {
+        color: #6e5600;
+        background: rgba(255, 204, 0, 0.18);
+        border-color: rgba(110, 86, 0, 0.25);
+    }
+}
+
 main {
     display: flex;
     flex-direction: column;
@@ -103,7 +140,7 @@ main {
     margin: auto;
 }
 
-.hero, .theme-toggle, .url-form, .url-input, .custom-button, .credit, .paste-button, .source-url-display {
+.hero, .theme-toggle, .url-form, .url-input, .custom-button, .credit, .paste-button, .source-url-display, .old-address-banner {
     transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease, transform 0.2s ease, background 0.4s ease;
 }
 
