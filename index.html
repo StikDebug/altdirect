@@ -46,6 +46,10 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div id="old-address-banner" class="old-address-banner" role="alert" hidden>
+        The link you were given uses an old AltDirect address. Please ask its maintainer to update their links and embeds to the new address at <a href="https://altdirect.app/">https://altdirect.app/</a>.
+    </div>
+
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme"></button>
 
     <main>
@@ -116,6 +120,12 @@
         const rawParam = params.get('url');
         const rParam = params.get('r');
         const excludeParam = params.get('exclude');
+        const isOldAddress = params.get('old') === 'true';
+        const oldAddressBanner = document.getElementById('old-address-banner');
+
+        if (isOldAddress) {
+            oldAddressBanner.hidden = false;
+        }
 
         function setContainer(contentNode) {
             container.replaceChildren(contentNode);
@@ -173,7 +183,8 @@
                     return;
                 }
                 const excludePart = excludeParam ? '&exclude=' + excludeParam : '';
-                window.location.href = window.location.pathname + '?url=' + rawVal + excludePart;
+                const oldAddressPart = isOldAddress ? '&old=true' : '';
+                window.location.href = window.location.pathname + '?url=' + rawVal + excludePart + oldAddressPart;
             });
 
             return wrapper;
@@ -261,6 +272,7 @@
                     parts.push('url=' + s);
                     if (rParam) parts.push('r=' + rParam);
                     if (excludeParam) parts.push('exclude=' + excludeParam);
+                    if (isOldAddress) parts.push('old=true');
                     const newUrl = window.location.pathname + (parts.length ? '?' + parts.join('&') : '');
                     history.replaceState(null, '', newUrl);
                 }
