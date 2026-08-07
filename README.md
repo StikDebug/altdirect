@@ -3,7 +3,7 @@
 
 [![pages-build-deployment](https://github.com/StikStore/altdirect/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/StikStore/altdirect/actions/workflows/pages/pages-build-deployment)
 
-A tiny, dependency‑free static helper page for launching AltStore Sources (AltSources) in your preferred sideloading app. Paste or pass an AltSource feed URL and quickly open it in SideStore, AltStore Classic, StikStore, LiveContainer, Feather or TrollApps.
+A tiny, dependency‑free static helper page for launching AltStore Sources (AltSources) in your preferred sideloading app. Paste or pass an AltSource feed URL and quickly open it in your preferred sideloader.
 
 Live page: https://altdirect.app/
 
@@ -14,11 +14,11 @@ Live page: https://altdirect.app/
 ## What it does
 
 - Generates “Open in …” buttons for:
-  - StikStore
-  - SideStore
   - AltStore Classic
-  - LiveContainer
   - Feather
+  - LiveContainer
+  - SideStore
+  - StikStore
   - TrollApps
 
 - Supports one‑tap deep linking via the `r` (redirect target) parameter together with the `url` parameter.
@@ -28,7 +28,7 @@ Live page: https://altdirect.app/
 - Mobile‑friendly UI.
 
 > [!CAUTION]
-> AltSource URLs including ampersands (&) may encounter issues due to how URLs are handled by some clients and how the site constructs redirect links. If this causes problems in practice, it may be addressed in a future update.
+> AltSource URLs including ampersands (&) may encounter issues due to how URLs are handled by some clients and how the site constructs redirect links. If this causes problems in practice, please let me know and it may be addressed in a future update.
 
 ---
 
@@ -55,7 +55,7 @@ Create your link using the query parameters below. These parameters are stable a
   - The source/feed URL (http/https). Leading/trailing spaces are trimmed (including `%20`) and, if the scheme is omitted, `https://` is automatically prefixed.
   - Example values:
     - `https://apps.altstore.io/`
-    - `apps.altstore.io` (becomes `https://apps.altstore.io`)
+    - `apps.altstore.io` (auto normalization means it becomes `https://apps.altstore.io` because of how certain apps work)
 - `&exclude` (string, optional)
   - Comma‑separated list of buttons to hide. Valid keys:
     - `altstore`, `feather`, `livecontainer`, `sidestore`, `stikstore`, `trollapps`
@@ -68,8 +68,7 @@ Create your link using the query parameters below. These parameters are stable a
     - `feather` → `feather://source/<url>`
     - `livecontainer` → `livecontainer://source?url=<url>`
     - `sidestore` → `sidestore://source?url=<url>`
-    - `stikstore` → `stikstore://add-source?url=<percent-encoded http/https source URL>`
-      - StikStore also accepts `source`, `sourceURL`, `sourceUrl`, or `source_url` instead of `url`.
+    - `stikstore` → `stikstore://add-source?url=<url>`
     - `trollapps` → `trollapps://add?url=<url>`
     
 
@@ -80,7 +79,7 @@ Create a link using the parameters outlined above and insert it into the followi
 ```html
 <!-- you can set the alignment here to left/center/right -->
 <h1 align="left">
-<a href="https://stikstore.app/altdirect/?url=https://example.com/source.json"><img src="https://altdirect.app/assets/png/AltSource_Blue.png" target="_blank" width="200">
+<a href="https://altdirect.app/?url=https://example.com/source.json"><img src="https://altdirect.app/assets/png/AltSource_Blue.png" target="_blank" width="200">
 </a>
 <a href="https://example.com/app.ipa"><img src="https://altdirect.app/assets/png/Download_Blue.png" target="_blank" width="200">
 </a>
@@ -90,7 +89,7 @@ Create a link using the parameters outlined above and insert it into the followi
 Together, they appear as:
 
 <h1 align="left">
-<a href="https://stikstore.app/altdirect/?url=https://example.com/source.json" target="_blank"><img src="https://altdirect.app/assets/png/AltSource_Blue.png" width="200">
+<a href="https://altdirect.app/?url=https://example.com/source.json" target="_blank"><img src="https://altdirect.app/assets/png/AltSource_Blue.png" width="200">
 </a>
 <a href="https://example.com/app.ipa" target="_blank"><img src="https://altdirect.app/assets/png/Download_Blue.png" width="200"
 </a>
@@ -106,18 +105,18 @@ Pretty nice, huh?
 
 ## Examples
 >[!NOTE]
->The URL format and asset links should never be modified in a way that breaks site functionality or requires action on your end. In addition, we don't intend to stop paying for stikstore.app soon, but if so, I don't see github.io being deprecated, so the mirror is expected to remain available regardless.
+>The URL format and asset links should never be modified in a way that breaks site functionality or requires action on your end. I’m afraid we have moved the domain a couple times, but I promise it won’t happen again and existing links still work.
 
-Using the hosted page at https://stikstore.app/altdirect:
+Using the hosted page at https://altdirect.app:
 
 - Display redirectors for an AltStore Source:
-  - `https://stikstore.app/altdirect/?url=https://example.com/source.json`
+  - `https://altdirect.app/?url=https://example.com/source.json`
 - Hide certain app redirector:
-  - `https://stikstore.app/altdirect/?url=https://example.com/source.json&exclude=altstore,feather`
+  - `https://altdirect.app/?url=https://example.com/source.json&exclude=altstore,feather`
 - Direct deep link to SideStore (automatic redirect):
-  - `https://stikstore.app/altdirect/?url=https://example.com/source.json&r=sidestore`
+  - `https://altdirect.app/?url=https://example.com/source.json&r=sidestore`
 - All three:
-  - `https://stikstore.app/altdirect/?url=https://example.com/source.json&r=sidestore&exclude=feather,livecontainer`
+  - `https://altdirect.app/?url=https://example.com/source.json&r=sidestore&exclude=feather,livecontainer`
 
 ---
 
@@ -130,9 +129,9 @@ Using the hosted page at https://stikstore.app/altdirect:
 
 ## Acknowledgments
 
-- [AltStore](https://altstore.io), [SideStore](https://sidestore.io), [LiveContainer](https://livecontainer.github.io/), and [Feather](https://github.com/khcrysalis/Feather) are trademarks of their respective owners. This project is unaffiliated and simply provides convenience links.
-- [Stephen](https://github.com/StephenDev0) for new UI.
-- [Transistor](https://github.com/transistor-exe) for the logo and link assets.
+- Redirect-supporting apps are trademarks of their respective owners. This project is unaffiliated and simply provides convenience links.
+- [Stephen](https://github.com/StephenDev0) for new UI and domain.
+- [Transistor](https://github.com/transistor-exe) for the logo and link assets. 
 - [Intradeus](https://github.com/intradeus), whose [redirector](https://github.com/intradeus/http-protocol-redirector) the project is based on.
 - [Riley Testut](https://github.com/rileytestut) for the AltStore diamond and invention of AltSources.
 - [Meshal](https://github.com/Meshal-GIT) for the catchy name.
