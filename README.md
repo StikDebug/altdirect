@@ -75,14 +75,14 @@ Create your link using the query parameters below. These parameters are stable a
 
 ### Image Embedding
 
-Create a link using the parameters outlined above and insert it into the following code snippet (replace the example URL with your source). If you wish, you can also embed a direct download link to an .ipa (replace `https://example.com/app.ipa` with your link) for image consistency. (The embeds are available in White, Blue, and Black)
+Create a link using the parameters outlined above and insert it into the following code snippet (replace the example URL with your source). If you wish, you can also embed a direct download link to an .ipa (replace `https://example.com/app.ipa` with your link) for image consistency. (The embeds are available in Blue (Color) and White)
 
 ```html
 <!-- you can set the alignment here to left/center/right -->
 <h1 align="left">
-<a href="https://stikstore.app/altdirect/?url=https://example.com/source.json"><img src="https://altdirect.app/assets/png/AltSource_Blue.png?raw=true" target="_blank" width="200">
+<a href="https://stikstore.app/altdirect/?url=https://example.com/source.json"><img src="https://altdirect.app/assets/png/AltSource_Blue.png" target="_blank" width="200">
 </a>
-<a href="https://example.com/app.ipa"><img src="https://altdirect.app/assets/png/Download_Blue.png?raw=true" target="_blank" width="200">
+<a href="https://example.com/app.ipa"><img src="https://altdirect.app/assets/png/Download_Blue.png" target="_blank" width="200">
 </a>
 </h1>
 ```
@@ -90,9 +90,9 @@ Create a link using the parameters outlined above and insert it into the followi
 Together, they appear as:
 
 <h1 align="left">
-<a href="https://stikstore.app/altdirect/?url=https://example.com/source.json" target="_blank"><img src="https://altdirect.app/assets/png/AltSource_Blue.png?raw=true" width="200">
+<a href="https://stikstore.app/altdirect/?url=https://example.com/source.json" target="_blank"><img src="https://altdirect.app/assets/png/AltSource_Blue.png" width="200">
 </a>
-<a href="https://example.com/app.ipa" target="_blank"><img src="https://altdirect.app/assets/png/Download_Blue.png?raw=true" width="200"
+<a href="https://example.com/app.ipa" target="_blank"><img src="https://altdirect.app/assets/png/Download_Blue.png" width="200"
 </a>
 </h1>
 
