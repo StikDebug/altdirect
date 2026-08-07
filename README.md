@@ -78,12 +78,12 @@ Create a link using the parameters outlined above and insert it into the followi
 
 ```html
 <!-- you can set the alignment here to left/center/right -->
-<h1 align="left">
+<h3 align="center">
 <a href="https://altdirect.app/?url=https://example.com/source.json"><img src="https://altdirect.app/assets/png/AltSource_Blue.png" target="_blank" width="200">
 </a>
 <a href="https://example.com/app.ipa"><img src="https://altdirect.app/assets/png/Download_Blue.png" target="_blank" width="200">
 </a>
-</h1>
+</h3>
 ```
 
 Together, they appear as:
