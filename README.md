@@ -75,7 +75,7 @@ Create your link using the query parameters below. These parameters are stable a
 
 ### Image Embedding
 
-Create a link using the parameters outlined above and insert it into the following code snippet (replace the example URL with your source). If you wish, you can also embed a direct download link to an .ipa (replace `https://example.com/app.ipa` with your link) for image consistency. (The embeds are available in Blue (Color) and White)
+Create a link using the parameters outlined above and insert it into the following code snippet (replace the example URL with your source). If you wish, you can also embed a direct download link to an .ipa (replace `https://example.com/app.ipa` with your link) for image consistency. (The embeds are available in Blue (Color) and White, as well as .png and .svg)
 
 ```html
 <!-- you can set the alignment here to left/center/right -->
