@@ -1,7 +1,7 @@
 # <img src="/assets/png/Logo_Blue.png?raw=true" alt="AltDirect" height="25"> AltDirect (Official)
 ### by [CelloSerenity](https://github.com/CelloSerenity)
 
-[![pages-build-deployment](https://github.com/StikStore/altdirect/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/StikStore/altdirect/actions/workflows/pages/pages-build-deployment)
+[![pages-build-deployment](https://github.com/StikDebug/altdirect/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/StikDebug/altdirect/actions/workflows/pages/pages-build-deployment)
 
 A tiny, dependency‑free static helper page for launching AltStore Sources (AltSources) in your preferred sideloading app. Paste or pass an AltSource feed URL and quickly open it in your preferred sideloader.
 
