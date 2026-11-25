@@ -76,6 +76,7 @@
     </div>
     </main>
 
+    <script src="worker-config.js"></script>
     <script>
         'use strict';
         
@@ -116,10 +117,15 @@
 
         const container = document.getElementById('links-container');
         const subtitle = document.getElementById('subtitle');
+        const sourceWorkerUrl = window.SOURCE_WORKER_URL?.trim();
+        const sourceFetchingEnabled = true;
         const params = new URLSearchParams(window.location.search);
         const rawParam = params.get('url');
         const rParam = params.get('r');
         const excludeParam = params.get('exclude');
+        const appParam = params.get('app')?.trim();
+        const previewDisabled = params.get('preview') === 'false';
+        const canFetchPreview = sourceFetchingEnabled && !previewDisabled && Boolean(sourceWorkerUrl);
         const isOldAddress = params.get('old') === 'true';
         const oldAddressBanner = document.getElementById('old-address-banner');
 
@@ -136,6 +142,10 @@
             if (attrs) for (const k in attrs) el.setAttribute(k, attrs[k]);
             if (text != null) el.textContent = text;
             return el;
+        }
+
+        function sourceQueryValue(url) {
+            return encodeURIComponent(url).replace(/%3A/gi, ':').replace(/%2F/gi, '/').replace(/%3F/gi, '?').replace(/%3D/gi, '=');
         }
 
         function buildForm() {
@@ -182,9 +192,11 @@
                     input.focus();
                     return;
                 }
-                const excludePart = excludeParam ? '&exclude=' + excludeParam : '';
+                const excludePart = excludeParam ? '&exclude=' + encodeURIComponent(excludeParam) : '';
                 const oldAddressPart = isOldAddress ? '&old=true' : '';
-                window.location.href = window.location.pathname + '?url=' + rawVal + excludePart + oldAddressPart;
+                const previewPart = previewDisabled ? '&preview=false' : '';
+                const appPart = appParam ? '&app=' + encodeURIComponent(appParam) : '';
+                window.location.href = window.location.pathname + '?url=' + sourceQueryValue(rawVal) + excludePart + oldAddressPart + previewPart + appPart;
             });
 
             return wrapper;
@@ -213,8 +225,79 @@
 
             const frag = document.createDocumentFragment();
 
+            const sourcePreview = createEl('div', { class: 'source-preview' });
+            const sourceInfo = createEl('div', { class: 'source-info' });
+            const sourceName = createEl('div', { class: 'source-name' }, 'Loading source...');
+            const sourceSubtitle = createEl('div', { class: 'source-subtitle' });
             const urlDisplay = createEl('div', { class: 'source-url-display' }, s);
-            frag.appendChild(urlDisplay);
+            sourceInfo.append(sourceName, sourceSubtitle);
+            if (canFetchPreview) {
+                sourcePreview.append(sourceInfo, urlDisplay);
+                frag.appendChild(sourcePreview);
+            } else {
+                urlDisplay.classList.add('standalone');
+                frag.appendChild(urlDisplay);
+            }
+
+            const previewUrl = s;
+            if (canFetchPreview) fetch(previewUrl).then(response => {
+                if (!response.ok) throw new Error('Source unavailable');
+                return response.json();
+            }).catch(() => {
+                const appPart = appParam ? '&app=' + encodeURIComponent(appParam) : '';
+                return fetch(sourceWorkerUrl + '/api/source?url=' + encodeURIComponent(previewUrl) + appPart).then(response => {
+                    if (!response.ok) throw new Error('Source unavailable');
+                    return response.json();
+                });
+            }).then(source => {
+                if (!source || typeof source !== 'object' ||
+                    (!appParam && (typeof source.name !== 'string' || !source.name.trim()))) throw new Error('Invalid source');
+                return source;
+            })
+            /*
+            .catch(async error => {
+                try {
+                    const url = new URL(previewUrl);
+                    const response = await fetch('https://api.altstore.io/source/' + url.host + url.pathname + url.search);
+                    if (!response.ok) throw error;
+                    const page = new DOMParser().parseFromString(await response.text(), 'text/html');
+                    const name = page.querySelector('.previewname')?.textContent?.trim();
+                    if (!name) throw error;
+                    return {
+                        name,
+                        subtitle: page.querySelector('.previewcaption')?.textContent?.trim(),
+                        iconURL: page.querySelector('meta[property="og:image"]')?.content
+                    };
+                } catch (_) {
+                    throw error;
+                }
+            })
+            */
+            .then(source => {
+                const apps = Array.isArray(source.apps) ? source.apps : [];
+                const app = appParam ? apps.find(app => app?.bundleIdentifier === appParam &&
+                    typeof app.name === 'string' && app.name.trim()) : null;
+                if (!app && (typeof source.name !== 'string' || !source.name.trim())) throw new Error('Invalid source');
+
+                sourceName.textContent = app ? app.name : source.name;
+                const caption = app ? app.developerName : source.subtitle;
+                sourceSubtitle.textContent = typeof caption === 'string' ? caption : '';
+                const iconURL = app ? app.iconURL :
+                    (typeof source.iconURL === 'string' && source.iconURL ||
+                        apps.find(app => typeof app?.iconURL === 'string')?.iconURL);
+                if (typeof iconURL === 'string') {
+                    try {
+                        const iconUrl = new URL(iconURL, previewUrl);
+                        if (iconUrl.protocol === 'https:' || iconUrl.protocol === 'http:') {
+                            const icon = createEl('img', { class: app ? 'source-icon app-preview-icon' : 'source-icon', src: iconUrl.href, alt: '', fetchpriority: 'high' });
+                            sourcePreview.prepend(icon);
+                        }
+                    } catch (_) {}
+                }
+            }).catch(() => {
+                sourceName.textContent = 'Source preview unavailable';
+                sourceSubtitle.textContent = '';
+            });
 
             function hrefWithR(choice) {
                 const loc = window.location;
@@ -269,10 +352,12 @@
             try {
                 if (window.history && history.replaceState) {
                     const parts = [];
-                    parts.push('url=' + s);
-                    if (rParam) parts.push('r=' + rParam);
-                    if (excludeParam) parts.push('exclude=' + excludeParam);
+                    parts.push('url=' + sourceQueryValue(s));
+                    if (rParam) parts.push('r=' + encodeURIComponent(rParam));
+                    if (excludeParam) parts.push('exclude=' + encodeURIComponent(excludeParam));
+                    if (appParam) parts.push('app=' + encodeURIComponent(appParam));
                     if (isOldAddress) parts.push('old=true');
+                    if (previewDisabled) parts.push('preview=false');
                     const newUrl = window.location.pathname + (parts.length ? '?' + parts.join('&') : '');
                     history.replaceState(null, '', newUrl);
                 }

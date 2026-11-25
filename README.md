@@ -37,6 +37,9 @@ Live page: https://altdirect.app/
 - If no query parameters are provided, you’ll see a simple form where you can enter a source URL (with Paste and Go actions).
 - If `?url=…` is present, the page renders “Open in …”, "Copy…" and "View…" redirector buttons, excluding redirects defined by the `&exclude=…` parameter. Clicking a button updates the URL to include `r=<target>` while preserving your `url` and `exclude`.
 - If both `?url=…` and `&r=…` are present, `redirect.js` immediately redirects the browser to the app’s custom scheme based on `r`.
+- Set `sourceFetchingEnabled` to `false` in `index.html` to disable source fetching for the whole deployment.
+
+GitHub Pages deployments read the optional `SOURCE_WORKER_URL` repository variable to configure the source proxy. Set it to the Worker's HTTPS origin, such as `https://source.example.workers.dev`. After changing the variable, run the **Deploy Pages** workflow to publish the new value. Without a proxy URL, the page shows only the source URL and skips preview fetching. This also applies to local copies using the empty `worker-config.js` default.
 
 Files:
 - `index.html` — UI, query‑param handling, and link generation.
@@ -60,6 +63,11 @@ Create your link using the query parameters below. These parameters are stable a
   - Comma‑separated list of buttons to hide. Valid keys:
     - `altstore`, `feather`, `livecontainer`, `sidestore`, `stikstore`, `trollapps`
   - Example: `&exclude=altstore,feather`
+- `&app` (string, optional)
+  - Shows the matching app's name, developer, and icon in the preview. If the app metadata is unavailable, shows the source preview when possible.
+  - Example: `https://altdirect.app/?url=https://stikdebug.xyz/index.json&app=com.stik.stikdebug`
+- `&preview=false` (optional)
+  - Skips source fetching and shows only the source URL for this link.
 - `&r` (string, optional)
   - Valid keys matches `exclude`. Only one entry.
   - Example: `r=sidestore`

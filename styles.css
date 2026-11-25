@@ -148,7 +148,11 @@ main {
     font-size: 0.85rem;
     color: var(--secondary-text);
     word-break: break-all;
-    margin-bottom: 0;
+    margin-top: 8px;
+}
+
+.source-url-display.standalone {
+    margin-top: 0;
     padding: 12px 20px;
     background: var(--glass-bg);
     border-radius: 14px;
@@ -157,6 +161,67 @@ main {
     box-sizing: border-box;
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
+}
+
+.source-preview {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 16px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    padding: 20px;
+    background: var(--glass-bg);
+    border-radius: 14px;
+    border: 1px solid var(--glass-border);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+}
+
+.source-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex: none;
+}
+
+.app-preview-icon {
+    border-radius: 16px;
+}
+
+@supports (corner-shape: squircle) {
+    .app-preview-icon {
+        border-radius: 50%;
+        corner-shape: squircle;
+    }
+}
+
+.source-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.source-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.source-subtitle {
+    color: var(--secondary-text);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-top: 4px;
+}
+
+.source-subtitle:empty {
+    display: none;
+}
+
+.source-preview .source-url-display {
+    flex-basis: 100%;
 }
 
 .hero {
